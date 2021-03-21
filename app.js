@@ -21,7 +21,7 @@ app.get('/api', (req, res, next) => {
     res.send('API Status: Running')
 });
 
-app.post('/api/email', (req, res, next) => {
+app.post('https://robertkanejr.netlify.app/email', (req, res, next) => {
     sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
         to: 'bkane90@gmail.com',
