@@ -28,7 +28,7 @@ app.post("/contact", (req, res) => {
         if (err) {
             res.status(404).send(err);
         } else {
-            res.send("Message sent succesfully.");
+            res.send("Message sent succesfully");
         }
     });
 });
