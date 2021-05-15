@@ -1,28 +1,26 @@
 {
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "nodemailer": "^6.6.0",
+    "nodemon": "^2.0.7"
+  },
   "name": "portfolio-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Portfolio Contact Form",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bkane90/portfolio-backend.git"
+    "url": "git+https://github.com/robertkanejr/portfolio-backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bkane90/portfolio-backend/issues"
+    "url": "https://github.com/robertkanejr/portfolio-backend/issues"
   },
-  "homepage": "https://github.com/bkane90/portfolio-backend#readme",
-  "dependencies": {
-    "@sendgrid/mail": "^7.4.2",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.7"
-  }
+  "homepage": "https://github.com/robertkanejr/portfolio-backend#readme"
 }

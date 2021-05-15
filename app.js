@@ -1,52 +1,38 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-
-const sendGrid = require('@sendGrid/mail');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const nodemailer = require("nodemailer");
+const cors = require("cors");
 
 app.use(cors());
+app.use(express.json());
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
+const smtpTrans = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+    },
 });
 
-app.get('/api', (req, res) => {
-    res.send('API Status: Running')
+app.post("/contact", (req, res) => {
+    const mailOpts = {
+        to: process.env.GMAIL_USER,
+        subject: "New message from contact form Portfolio.",
+        html: `${req.body.name} (${req.body.email}) says: ${req.body.message}`,
+    };
+
+    smtpTrans.sendMail(mailOpts, (err, info) => {
+        if (err) {
+            res.sendStatus(404);
+        } else {
+            res.send("Message sent succesfully.");
+        }
+    });
 });
 
-app.post('/api/email', (req, res) => {
-
-    console.log(req.body);
-
-    sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
-    const msg = {
-        to: 'bkane90@gmail.com',
-        from: req.body.email,
-        subject: 'Portfolio Site Contact',
-        text: req.body.message
-    }
-
-    sendGrid.send(msg)
-        .then(result => {
-            res.status(200).json({
-                success: true
-            });
-        })
-        .catch(err => {
-            console.log('error: ', err);
-            res.status(401).json({
-                success: false
-            })
-        });
-});
-
-app.listen(process.env.PORT || 5000, () => {
-    console.log('Listening!');
-})
+app.listen(process.env.PORT, () =>
+    console.log(`Server running on port: ${process.env.PORT}.`)
+);
