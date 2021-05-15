@@ -10,7 +10,7 @@ app.use(express.json());
 const smtpTrans = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
-    secure: false,
+    secure: true,
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
@@ -26,7 +26,7 @@ app.post("/contact", (req, res) => {
 
     smtpTrans.sendMail(mailOpts, (err, info) => {
         if (err) {
-            res.sendStatus(404);
+            res.status(404).send(info, err);
         } else {
             res.send("Message sent succesfully.");
         }
