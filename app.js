@@ -20,7 +20,7 @@ const smtpTrans = nodemailer.createTransport({
 app.post("/contact", (req, res) => {
     const mailOpts = {
         to: process.env.GMAIL_USER,
-        subject: "New message from contact form Portfolio.",
+        subject: "Portfolio Site Contact Form Submission",
         html: `${req.body.name} (${req.body.email}) says: ${req.body.message}`,
     };
 
