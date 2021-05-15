@@ -26,7 +26,7 @@ app.post("/contact", (req, res) => {
 
     smtpTrans.sendMail(mailOpts, (err, info) => {
         if (err) {
-            res.status(404).send(info, err);
+            res.status(404).send(err);
         } else {
             res.send("Message sent succesfully.");
         }
