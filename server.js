@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express')
 const cors = require("cors")
+const request = require('request');
 const nodemailer = require('nodemailer')
 const { google } = require('googleapis')
 const OAuth2 = google.auth.OAuth2
@@ -23,20 +24,39 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
-app.route("/").get(function (req, res) {
-    res.sendFile(process.cwd() + "/public/contactUs.html");
+// app.route("/").get(function (req, res) {
+//     res.sendFile(process.cwd() + "/public/contactUs.html");
+// });
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
 });
+
+app.get('/contact', (req, res) => {
+    request(
+        { url: 'https://robertkanejr.netlify.app/contact' },
+        (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+                return res.status(500).json({ type: 'error', message: err.message });
+            }
+            res.json(JSON.parse(body));
+        }
+    )
+});
+
 
 app.post('/contact', (req, response) => {
     const output = `
   <p>You have a new contact request</p>
-  <img class="email" src="cid:email" alt="email-image">
   <h3>Contact details</h3>
   <ul>
   <li>FirstName: ${req.body.name}</li>
   <li>Email: ${req.body.email}</li>
   <li>Message: ${req.body.message}</li>
   </ul>`
+
     const smtpTrans = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
