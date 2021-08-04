@@ -42,7 +42,6 @@ app.get('/contact', (req, res) => {
     )
 });
 
-
 app.post('/contact', (req, response) => {
     const output = `
   <p>You have a new contact request</p>

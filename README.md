@@ -10,6 +10,8 @@ Technologies used:
 Backend - Express, NodeJS, Nodemailer, CORS, Google Cloud Platform, GoogleAPIs, OAuth 2.0, Heroku
 Frontend - JavaScript, React, Axios, React Bootstrap, HTML, CSS, Bootstrap, Netlify
 
+Dependencies: cors, dotenv, express, googleapis, nodemailer, nodemon
+
 How to run it:
 Backend - node server.js
 Frontend - npm start
