@@ -49,6 +49,7 @@ app.post('/contact', (req, response) => {
   <ul>
   <li>FirstName: ${req.body.name}</li>
   <li>Email: ${req.body.email}</li>
+  <li>Email: ${req.body.subject}</li>
   <li>Message: ${req.body.message}</li>
   </ul>`
 
